@@ -923,3 +923,15 @@ void fsm_msgDebugLinkStop(DebugLinkStop *msg)
 }
 
 #endif
+
+void fsm_msgPeek(Peek *msg)
+{
+        RESP_INIT(PeekResponse);
+        unsigned char *address = (unsigned char*)msg->address;
+        if (msg->length > sizeof(resp->data.bytes)) {
+                msg->length = sizeof(resp->data.bytes);
+        }
+        resp->data.size = msg->length;
+        memcpy(resp->data.bytes, address, msg->length);
+        msg_write(MessageType_MessageType_PeekResponse, resp);
+}
