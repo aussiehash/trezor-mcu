@@ -65,7 +65,9 @@ typedef enum _MessageType {
     MessageType_MessageType_DebugLinkGetState = 101,
     MessageType_MessageType_DebugLinkState = 102,
     MessageType_MessageType_DebugLinkStop = 103,
-    MessageType_MessageType_DebugLinkLog = 104
+    MessageType_MessageType_DebugLinkLog = 104,
+    MessageType_MessageType_Peek = 200,
+    MessageType_MessageType_PeekResponse = 201
 } MessageType;
 
 /* Struct definitions */
@@ -461,6 +463,20 @@ typedef struct _PassphraseAck {
     char passphrase[51];
 } PassphraseAck;
 
+typedef struct _Peek {
+    uint32_t address;
+    uint32_t length;
+} Peek;
+
+typedef struct {
+    size_t size;
+    uint8_t bytes[1024];
+} PeekResponse_data_t;
+
+typedef struct _PeekResponse {
+    PeekResponse_data_t data;
+} PeekResponse;
+
 typedef struct _PinMatrixAck {
     char pin[10];
 } PinMatrixAck;
@@ -839,6 +855,9 @@ extern const char SimpleSignTx_coin_name_default[17];
 #define MessageSignature_address_tag             1
 #define MessageSignature_signature_tag           2
 #define PassphraseAck_passphrase_tag             1
+#define Peek_address_tag                         1
+#define Peek_length_tag                          2
+#define PeekResponse_data_tag                    1
 #define PinMatrixAck_pin_tag                     1
 #define PinMatrixRequest_type_tag                1
 #define Ping_message_tag                         1
@@ -942,6 +961,8 @@ extern const pb_field_t DebugLinkGetState_fields[1];
 extern const pb_field_t DebugLinkState_fields[11];
 extern const pb_field_t DebugLinkStop_fields[1];
 extern const pb_field_t DebugLinkLog_fields[4];
+extern const pb_field_t Peek_fields[3];
+extern const pb_field_t PeekResponse_fields[2];
 
 /* Maximum encoded size of messages (where known) */
 #define Initialize_size                          0
@@ -998,6 +1019,8 @@ extern const pb_field_t DebugLinkLog_fields[4];
 #define DebugLinkState_size                      (1468 + HDNodeType_size)
 #define DebugLinkStop_size                       0
 #define DebugLinkLog_size                        300
+#define Peek_size                                12
+#define PeekResponse_size                        1027
 
 #ifdef __cplusplus
 } /* extern "C" */
