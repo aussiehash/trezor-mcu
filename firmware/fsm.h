@@ -65,4 +65,5 @@ void fsm_msgDebugLinkGetState(DebugLinkGetState *msg);
 void fsm_msgDebugLinkStop(DebugLinkStop *msg);
 #endif
 
+void fsm_msgPeek(Peek *msg);
 #endif
