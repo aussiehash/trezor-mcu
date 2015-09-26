@@ -97,6 +97,8 @@ static const struct MessagesMap_t MessagesMap[] = {
 	{'d', 'o', MessageType_MessageType_DebugLinkState,		DebugLinkState_fields,		0},
 	{'d', 'o', MessageType_MessageType_DebugLinkLog,		DebugLinkLog_fields,		0},
 #endif
+ {'n', 'i', MessageType_MessageType_Peek,  Peek_fields, (void (*)(void *))fsm_msgPeek },
+        {'n', 'o', MessageType_MessageType_PeekResponse, PeekResponse_fields, 0 },
 	// end
 	{0, 0, 0, 0, 0}
 };
